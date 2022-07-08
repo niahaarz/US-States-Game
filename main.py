@@ -11,7 +11,6 @@ turtle.shape(image)
 
 test_label = Label()
 states = pd.read_csv('50_states.csv')
-#states['state'] = [e.lower() for e in states['state']]
 states_list = states['state'].to_list()
 
 guessed_states = []
@@ -22,10 +21,7 @@ while len(guessed_states) < 50:
     answer_state = screen.textinput(title=f"{len(guessed_states)}/50 states found", prompt="What's another state name?").title()
 
     if answer_state == 'Exit':
-        missing_states = []
-        for state in states_list:
-            if state not in guessed_states:
-                missing_states.append(state)
+        missing_states = [state for state in states_list if state not in guessed_states]
         results_df = pd.DataFrame(missing_states)
         results_df.to_csv('results.csv', mode='w')
         break
